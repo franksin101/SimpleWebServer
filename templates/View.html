@@ -15,6 +15,10 @@
 			<p>{{ method }}</p>
 			
 			{% if method == '2' %}
+			<input type="hidden" id="tableName" name="tableName"></input>
+			<input type="hidden" id="action" name="action"></input>
+			<input type="hidden" id="PKey" name="PKey"></input>
+			
 			<table border="1">
 				<caption>Create Table</caption>
 				<tr>
@@ -25,6 +29,21 @@
 				</tr>
 				<tr>
 					<form method="POST">
+					{% if twoData is defined %}
+					
+					{% for d in twoData %}
+					<tr>
+						<td>{{ d[0] }}</td>
+						<td>{{ d[1] }}</td>
+						<td>{{ d[2] }}</td>
+						<td>
+							<input type="submit" value="GO" onclick="document.getElementById('tableName').value='{{ d[0] }}'; document.getElementById('PKey').value = '{{ d[1] }}'; document.getElementById('action').value='datas';"></input>
+							<input type="submit" value="Del" onclick="document.getElementById('tableName').value='{{ d[0] }}'; document.getElementById('PKey').value = '{{ d[1] }}'; document.getElementById('action').value='delete';"></input>
+						</td>
+					</tr>
+					{% endfor %}
+					
+					{% endif %}
 					</form>
 				</tr>
 			</table>

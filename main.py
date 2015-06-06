@@ -159,17 +159,37 @@ def View() :
 	tableInfo = db.tables()
 			
 	twoData = []
-			
+	tFs = []
+	tTs = []
+	PKeyF = ""
+	
 	for k in list(tableInfo.keys()) :
-		print(tableInfo[k])
-		twoData.append([k, tableInfo[k]])
-			
-	db.close()			
+		PKeyF = ""
+		tFs = list(tableInfo[k].keys())
+		for fk in tFs :
+			tTs = tableInfo[k][fk].split(' ')
+			if 'PRIMARY' in tTs :
+				PKeyF = fk
+		twoData.append([k, PKeyF, ','.join(tFs)])
+		
+	db.close()
+	
+	print(twoData)
 		
 	if request.method == 'POST' :
 		if not request.form.get('act', '') == None and not session['method'] == request.form.get('act', ''):
 			session['method'] = str(request.form.get('act', '')) 
 			return redirect(url_for('RWDb'))
+		
+		action = request.form.get('action', '')
+		tableName = request.form.get('tableName', '')
+		PKey = request.form.get('PKey', '')
+		
+		if action == 'delete' :
+			db = myDb.myDb()
+			db.drop(tableName)
+			db.close()
+			return redirect(url_for('View'))
 			
 		return render_template('View.html', method = session['method'], twoData = twoData)
 	if request.method == 'GET' :

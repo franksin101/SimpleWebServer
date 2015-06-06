@@ -39,6 +39,8 @@
 							<tr name="createT">
 								{% if oneData is defined and i < (maxCount - 1) and i == oneData[i][0] %}
 								<td><input type="radio" name="Pkey" value="{{ i }}" checked>{{ oneData[i][0] }}</input></td>
+								{% elif maxCount == 1 %}
+								<td><input type="radio" name="Pkey" value="{{ i }}" checked>{{ 0 }}</input></td>
 								{% else %}
 								<td><input type="radio" name="Pkey" value="{{ i }}">{{ i }}</input></td>
 								{% endif %}
