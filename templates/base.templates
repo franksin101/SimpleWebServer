@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{# this is a title #}
+{%- block title %}{%- endblock %}
+{# import css lib by link tag #}
+{%- block csslib %}{%- endblock %}
+{# import js lib by script tag #}
+{%- block jslib %}{%- endblock %}
+{# js code #}
+{%- block js %}{%- endblock %}
+{# css code #}
+{%- block css %}{%- endblock %}
+{# body part main designer #}
+{% block body %}
+	
+{% endblock %}

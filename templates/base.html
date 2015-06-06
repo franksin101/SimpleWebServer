@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type:text/html" charset="UTF-8"/>
+		<title>{% block title %}{% endblock %}</title>
+		{% block csslib %}{% endblock %}
+		{% block jslib %}{% endblock %}
+		<script language="JavaScript">{% block js %}{% endblock %}</script>
+		<style>{% block style %}{% endblock %}</style>
+	</head>
+	<body>
+		<center><h1>{{ self.title() }}</h1></center>
+		{% block body %}{% endblock %}
+	</body>
+</html>
+

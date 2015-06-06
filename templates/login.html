@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{# this is a title #}
+{%- block title %} Login Test {%- endblock %}
+{# import css lib by link tag #}
+{%- block csslib %}{%- endblock %}
+{# import js lib by script tag #}
+{%- block jslib %}{%- endblock %}
+{# js code #}
+{%- block js %}{%- endblock %}
+{# css code #}
+{%- block css %}{%- endblock %}
+{# body part main designer #}
+{% block body %}
+	<center>
+		{% if error is defined %}
+			<center><span> Login Error is </span> : <span>{{ error }}</span></center>
+			<form method="POST">
+				{% if username is defined %}
+					<span for="[name=username]" >username :</span> <input name="username" value="{{ username }}"></input>
+				{% else %}
+					<span for="[name=username]" >username :</span> <input name="username"></input>
+				{% endif %}
+				<br/>
+				<span for="[name=password]">password :</span> <input type="password" name="password"></input>
+				<br/>
+				<button type="submit" value="login">Login</button>
+			</form>
+		{% else %}
+		<form method="POST">
+			<span for="[name=username]">username :</span> <input  name="username"></input>
+			<br/>
+			<span for="[name=password]">password :</span> <input  type="password" name="password"></input>
+			<br/>
+			<button type="submit" value="login">Login</button>
+		</form>
+		{% endif %}
+	</center>
+{% endblock %}
