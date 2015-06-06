@@ -97,19 +97,26 @@ def RWDb() :
 						e[3] = 'NOT NULL'	
 						
 					createS[e[1]] = str(e[2]) + " " + e[0] + " " + e[3]
-				print(createS)
-				print(request.form.get('tbName', ''))
+					
 				db = myDb.myDb()
-				print(db.create(request.form.get('tbName', ''), createS))
+				
+				if maxIndex > 0 :
+					print(db.create(request.form.get('tbName', ''), createS))
+				
+				tableInfo = db.tables()
+			
+				twoData = []
+			
+				for k in list(tableInfo.keys()) :
+					twoData.append([k, tableInfo[k]])
+			
 				db.close()
-				return render_template('myDb.html', method = '2')
+				return render_template('myDb.html', method = '2', twoData = twoData)
 				
 		elif session['method'] == '2' : # go table, delete table
 			db = myDb.myDb()
 			
 			tableInfo = db.tables()
-			
-			print(db.tables())
 			
 			twoData = []
 			
