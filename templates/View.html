@@ -1,0 +1,35 @@
+{% extends "myDb.html" %}
+
+{%- block js %}
+	function countEle(outcomeId, eleClass){
+		console.log(document.getElementsByName(eleClass).length); 
+		document.getElementById(outcomeId).value = document.getElementsByName(eleClass).length;
+		//alert(document.getElementById(outcomeId).value);
+	}
+{%- endblock %}
+
+{% block Method %}
+
+{%- if method is defined %}
+			
+			<p>{{ method }}</p>
+			
+			{% if method == '2' %}
+			<table border="1">
+				<caption>Create Table</caption>
+				<tr>
+					<th>Table Name</th>
+					<th>Primary Key</th>
+					<th>Field</th>
+					<th>Action</th>
+				</tr>
+				<tr>
+					<form method="POST">
+					</form>
+				</tr>
+			</table>
+			{% endif %}
+			
+{%- endif %}
+
+{% endblock %}

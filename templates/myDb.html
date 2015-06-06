@@ -6,13 +6,7 @@
 {# import js lib by script tag #}
 {%- block jslib %}{%- endblock %}
 {# js code #}
-{%- block js %}
-	function countEle(outcomeId, eleClass){
-		console.log(document.getElementsByName(eleClass).length); 
-		document.getElementById(outcomeId).value = document.getElementsByName(eleClass).length;
-		alert(document.getElementById(outcomeId).value);
-	}
-{%- endblock %}
+{%- block js %}{%- endblock %}
 {# css code #}
 {%- block css %}{%- endblock %}
 {# body part main designer #}
@@ -45,99 +39,9 @@
 				<input type="radio" name="act" value="3" onclick="document.forms[0].submit()">View Data</input>
 			{%- endif %}
 			
-			{%- if method is defined %}
 			
-			<p>{{ method }}</p>
-			
-			{% if method == '1' %}
-			<table border="1">
-				<caption>Create Table</caption>
-				<tr>
-					<th>Primary Key</th>
-					<th>Name</th>
-					<th>Type</th>
-					<th>NULL</th>
-				</tr>
-				<tr>
-					<form method="POST">
-						<input id="maxIndex" name="maxIndex" type="hidden" value="1"></input>
-						<input id="add" name="add" type="hidden" value="0"></input>
-						
-						{% if tbName is defined %}
-						<input name="tbName" type="text" value="{{ tbName }}"></input>
-						{% else %}
-						<input name="tbName" type="text" value="tbName"></input>
-						{% endif %}
-						
-						{% if maxCount is defined %}
-							{% for i in range(0, maxCount) %}
-							<tr name="createT">
-								{% if oneData is defined and i < (maxCount - 1) and i == oneData[i][0] %}
-								<td><input type="radio" name="Pkey" value="{{ i }}" checked>{{ oneData[i][0] }}</input></td>
-								{% else %}
-								<td><input type="radio" name="Pkey" value="{{ i }}">{{ i }}</input></td>
-								{% endif %}
-								{% if oneData is defined and i < (maxCount - 1) %}
-								<td><input type="text" name="fName{{ i }}" value="{{ oneData[i][1] }}" required></input></td>
-								{% else %}
-								<td><input type="text" name="fName{{ i }}" value="field{{ i }}" required></input></td>
-								{% endif %}
-								<td>
-									<select type="text" name="fType{{ i }}">
-										{% if oneData is defined and i < (maxCount - 1) and 'INT' == oneData[i][2] %}
-										<option value="INT" selected>INT</option>
-										{% else %}
-										<option value="INT">INT</option>
-										{% endif %}
-										
-										{% if oneData is defined and i < (maxCount - 1) and 'TEXT' == oneData[i][2] %}
-										<option value="TEXT" selected>TEXT</option>
-										{% else %}
-										<option value="TEXT">TEXT</option>
-										{% endif %}
-										
-										{% if oneData is defined and i < (maxCount - 1) and 'REAL' == oneData[i][2] %}
-										<option value="REAL" selected>REAL</option>
-										{% else %}
-										<option value="REAL">REAL</option>
-										{% endif %}
-										
-										{% if oneData is defined and i < (maxCount - 1) and 'BOOLEAN' == oneData[i][2] %}
-										<option value="BOOLEAN" selected>BOOLEAN</option>
-										{% else %}
-										<option value="BOOLEAN">BOOLEAN</option>
-										{% endif %}
-									</select>
-								</td>
-								<td>
-									{% if oneData is defined and i < (maxCount - 1) and 1 == oneData[i][3] %}
-									<input type="checkbox" name="fNULL{{ i }}" checked></input>
-									{% else %}
-									<input type="checkbox" name="fNULL{{ i }}"></input>
-									{% endif %}
-								</td>
-							</tr>
-							{% endfor %}
-						{%  endif %}						
-						
-						<tr>
-							<td colspan="2"><input type="button" value="Add" style="width:100%" onclick="countEle('maxIndex', 'createT'); document.getElementById('add').value='1'; document.forms[0].submit();"></input></td>
-							<td colspan="2"><input type="submit" style="width:100%" onclick="document.getElementById('add').value='2'; countEle('maxIndex', 'createT');"></input></td>
-						</tr>
-					</form>
-				</tr>
-			</table>
-			{% elif method == '2' %}
-			
-			{% if twoData is defined %}
-				{% for e in twoData %}
-				<p>{{ e[0] }} : {{ e[1] }}</p>
-				{% endfor %}
-			{% endif %}
-			
-			{% elif method == '3' %}
-			{% endif %}
-			{%- endif %}
+			{% block Method %}
+			{% endblock %}
 		</form>
 	</center>
 {% endblock %}
