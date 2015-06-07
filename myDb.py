@@ -134,7 +134,7 @@ class myDb:
 		preSQL = "UPDATE " + tableName + " SET "
 		
 		if key in F :
-			preSQL = preSQL + str(key) + "=" + str(value) + " WHERE "
+			preSQL = preSQL + str(key) + "=" + '\'' + str(value) + '\'' + " WHERE "
 		else :
 			return "No this key"
 		
@@ -149,9 +149,11 @@ class myDb:
 		
 		print(preSQL)
 		
-		self.C.execute(preSQL, where) # user dict bind => ID=:ID ...
-		self.DB.commit()
-		
+		try :
+			self.C.execute(preSQL, where) # user dict bind => ID=:ID ...
+			self.DB.commit()
+		except sqlite3.IntegrityError as e :
+			return str(e)
 		return preSQL
 		
 	def close(self) :

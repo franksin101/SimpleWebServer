@@ -1,0 +1,100 @@
+{% extends "myDb.html" %}
+
+{%- block js %}
+	function inputEle(objIn, tF, PKey){
+		var input = document.createElement('input')
+		input.name = "UpdateVal"
+		input.id = "UpdateVal"
+		input.addEventListener('change', function(){
+			document.getElementById('selectF').value = tF
+			document.getElementById('whereVal').value = PKey
+			document.getElementById('action').value = "update"
+			document.forms[0].submit();
+		})
+		input.addEventListener('blur', function(){
+			document.getElementById('selectF').value = tF
+			document.getElementById('whereVal').value = PKey
+			document.getElementById('action').value = "update"
+			document.forms[0].submit();
+		})
+		if(objIn.childNodes.length > 0 && objIn.childNodes[0].nodeType != 1){
+			input.value = objIn.innerHTML
+			objIn.innerHTML = ""
+			objIn.appendChild(input)
+			input.focus()
+		}
+	}
+{%- endblock %}
+
+{% block Method %}
+
+{%- if method is defined %}
+			
+			<p>{{ method }}</p>
+			
+			{% if method == '3' %}
+			<input type="hidden" id="tableName" name="tableName" value="{{ tableName }}"></input>
+			<input type="hidden" id="fPKey" name="fPKey" value="{{ tPKey }}"></input>
+			<input type="hidden" id="fPKeyP" name="fPKeyP" value="{{ tPKeyP }}"></input>
+			<input type="hidden" id="action" name="action"></input>
+			<input type="hidden" id="selectF" name="selectF"></input>
+			<input type="hidden" id="whereVal" name="whereVal"></input>
+			
+			<table border="1">
+				<caption>View {{ tableName }} Data</caption>
+				<tr>
+					{% if tF is defined %}
+					{% for f in tF %}
+					<th> {{ f }} </th>
+					{% endfor %}
+					{% endif %}
+					<th>Action</th>
+				</tr>
+				<tr>
+					<form method="POST">
+					{% set count = 0 %}
+					{% for t in tL %}
+					<tr>	
+						{% set countF = 0 %}
+						{% for e in t %}
+						{% if countF == tPKeyP %}
+						<td style="color:red;" onmouseup="inputEle(this, '{{ tF[countF] }}', '{{ PKeyVal[count] }}');">{{ e }}</td>
+						{% else %}
+						<td onmouseup="inputEle(this, '{{ tF[countF] }}', '{{ PKeyVal[count] }}');">{{ e }}</td>
+						{% endif %}
+						{% set countF = countF + 1 %}
+						{% endfor %}
+						<td>
+							<input type="submit" value="Del" onclick="document.getElementById('whereVal').value='{{ PKeyVal[count] }}'; document.getElementById('action').value='delete';"></input>
+						</td>
+					</tr>
+					{% set count = count + 1 %}
+					{% endfor %}
+					<tr>
+						{% if tF is defined %}
+						{% for f in tF %}
+						<th> {{ f }} </th>
+						{% endfor %}
+						{% endif %}
+						<th></th>
+					</tr>
+					<tr>
+						{% if tF is defined %}
+						{% for f in tF %}
+						<td><input id="{{ f }}" name="{{ f }}" value="default" required></input></td>
+						{% endfor %}
+						{% endif %}
+					</tr>
+					<tr>
+						<td>
+							<input type="submit" value="Add" style="width:100%" onclick="document.getElementById('action').value='add';"></input>
+						</td>
+					</tr>
+					</form>
+				</tr>
+			</table>
+			{% endif %}
+			
+{%- endif %}
+
+{% endblock %}
