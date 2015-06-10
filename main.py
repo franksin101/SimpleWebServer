@@ -286,5 +286,6 @@ def Datas() :
 		return render_template('Datas.html', method = session['method'], PKeyVal = PKeyVal, tPKeyP = tPKeyP, tableName = session['tableName'], tPKey = session['tPKey'], tF = tF, tL = tL)
 	return render_template('Datas.html', method = '3', PKeyVal = PKeyVal, tPKeyP = tPKeyP, tableName = session['tableName'], tPKey = session['tPKey'], tF = tF, tL = tL)
 if __name__ == "__main__" :
+	app.run('0.0.0.0', debug=True, port=8100, ssl_context=('./server.crt', './server.key'))
 	#app.run('0.0.0.0', debug=True, port=8100, ssl_context='adhoc')
-	app.run('0.0.0.0', debug=True, port=5000)
+	#app.run('0.0.0.0', debug=True, port=5000)
